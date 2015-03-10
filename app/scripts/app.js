@@ -1,6 +1,5 @@
-/** @jsx React.DOM */
-
-var React = window.React = require('react'),
+'use strict';
+var React = window.React = require('react/addons'),
     Timer = require("./ui/Timer"),
     mountNode = document.getElementById("app");
 
@@ -12,33 +11,58 @@ var TodoList = React.createClass({
     return <ul>{this.props.items.map(createItem)}</ul>;
   }
 });
-var TodoApp = React.createClass({
-  getInitialState: function() {
-    return {items: [], text: ''};
+
+var RangeSlider = React.createClass({
+  propTypes: {
+    value: React.PropTypes.number.isRequired,
+    onChange: React.PropTypes.func.isRequired
   },
   onChange: function(e) {
-    this.setState({text: e.target.value});
+    this.props.onChange(Number(this.refs.input.getDOMNode().value));
   },
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var nextItems = this.state.items.concat([this.state.text]);
-    var nextText = '';
-    this.setState({items: nextItems, text: nextText});
+  render: function() {
+    return (
+      <input ref="input" type="range" min="0" max="100" onChange={this.onChange} value={this.props.value} />
+    );
+  }
+});
+
+var TextInput = React.createClass({
+  propTypes: {
+    value: React.PropTypes.number.isRequired,
+    onChange: React.PropTypes.func.isRequired
+  },
+  onChange: function(e) {
+    this.props.onChange(Number(this.refs.input.getDOMNode().value));
+  },
+  render: function() {
+    return (
+      <form>
+        <b>Value:</b>
+        &nbsp;
+        <input ref="input" type="number" min="0" max="100" onChange={this.onChange} value={this.props.value} />
+      </form>
+    );
+  }
+});
+
+var PairedInputApp = React.createClass({
+  getInitialState: () => ({
+    value: 50
+  }),
+  handleChange: function(value) {
+    this.setState({value});
   },
   render: function() {
     return (
       <div>
-        <h3>TODO</h3>
-        <TodoList items={this.state.items} />
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.onChange} value={this.state.text} />
-          <button>{'Add #' + (this.state.items.length + 1)}</button>
-        </form>
+        <h3>Paired inputs</h3>
+        <RangeSlider onChange={this.handleChange} value={this.state.value} />
+        <TextInput onChange={this.handleChange} value={this.state.value} />
       </div>
     );
   }
 });
 
 
-React.renderComponent(<TodoApp />, mountNode);
-
+React.render(<PairedInputApp />, mountNode);
