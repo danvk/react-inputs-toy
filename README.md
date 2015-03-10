@@ -11,6 +11,18 @@ This creates two synchronized inputs:
 
 Check out [app.js][] to see how it works.
 
+To play with this on your own machine, run:
+
+```bash
+git clone https://github.com/danvk/react-inputs-toy.git
+cd react-inputs-toy
+npm install
+bower install
+gulp watch
+```
+
+and then visit `http://localhost:9000/`.
+
 [gif]: animation.gif
 [controlled]: http://facebook.github.io/react/docs/forms.html#controlled-components
 [app.js]: app/scripts/app.js
