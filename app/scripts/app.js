@@ -34,7 +34,6 @@ var TodoApp = React.createClass({
           <input onChange={this.onChange} value={this.state.text} />
           <button>{'Add #' + (this.state.items.length + 1)}</button>
         </form>
-        <Timer />
       </div>
     );
   }
