@@ -9,5 +9,8 @@ This creates two synchronized inputs:
 
 ![][gif]
 
+Check out [app.js][] to see how it works.
+
 [gif]: animation.gif
 [controlled]: http://facebook.github.io/react/docs/forms.html#controlled-components
+[app.js]: app/scripts/app.js
